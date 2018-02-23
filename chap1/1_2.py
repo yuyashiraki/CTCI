@@ -3,6 +3,9 @@
 str1 = raw_input()
 str2 = raw_input()
 arr  = [0] * 256
+if not len(str1) == len(str2):
+    print "NO"
+    exit()
 for i in range(len(str1)):
     c = int(str1[i])
     arr[c] += 1
