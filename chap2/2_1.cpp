@@ -15,6 +15,14 @@
 #include <iterator>
 using namespace std;
 
+void print(list<int> &lst)
+{
+    for (auto cur = lst.begin(); cur != lst.end(); ++cur) {
+        cout << " " << *cur;
+    }
+    cout << endl;
+}
+
 int main()
 {
     list<int> lst;
@@ -24,13 +32,15 @@ int main()
         cin >> e;
         lst.push_back(e);
     }
+    print(lst);
     list<int>::iterator cur, ptr;
     for (cur = lst.begin(); cur != lst.end(); ++cur) {
         for (ptr = next(cur, 1); ptr != lst.end(); ++ptr) {
             if (*cur == *ptr) {
-                cout << *cur << endl;
+                lst.erase(ptr);
             }
         }
     }
+    print(lst);
     return 0;
 }
