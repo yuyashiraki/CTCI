@@ -71,6 +71,12 @@ class FixedMultiStack {
     }
 };
 
+/*
+class FlexMultiStack{
+    can be implemented by shrinking the next stack capacity iteratively
+}
+*/
+
 
 int main()
 {
