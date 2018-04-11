@@ -37,9 +37,9 @@ int repeatedLogicalShift(int x, int count)
 {
     // Logical right shift just shift without considering the sign bit
     for (int i = 0; i < count; i++) {
-        x >>>= 1;
+        (unsigned int) x >>= 1;
     }
-    return x;
+    return (int) x;
 }
 
 bool getBit(int num, int i)
