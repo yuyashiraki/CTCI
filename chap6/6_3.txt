@@ -1,0 +1,2 @@
+Try to cover 8*8 chess board ithout two diagonally opposite corners by 31 dominos each covers 2 squares.
+It doesn't work because two diagonal opposite corners take two squares with same colors like black squares. Then 30 black squares, 32 white squares. Since each domino covers 1 black and 1 white, it is not feasible.

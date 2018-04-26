@@ -1,0 +1,4 @@
+P(Game1) = p
+P(Game2) = p**2 * (1 - p) * 3 + p**3
+
+P(Game1) < P(Game2) vice versa
