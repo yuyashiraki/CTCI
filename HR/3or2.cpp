@@ -1,10 +1,3 @@
-#!/bin/sh
-
-if [ $# -ne 1 ]; then
-    exit 1
-fi
-
-cat > $(dirname $0)/$1 <<EOF
 #include <iostream>
 #include <cstdio>
 #include <cstdlib>
@@ -27,8 +20,16 @@ using namespace std;
 
 int main()
 {
+    ll N, cnt = 0;
+    cin >> N;
+    for (ll i = 0; i < N; i++) {
+        int a;
+        cin >> a;
+        while (a % 2 == 0) {
+            cnt++;
+            a /= 2;
+        }
+    }
+    cout << cnt << endl;
     return 0;
 }
-EOF
-
-exit 0

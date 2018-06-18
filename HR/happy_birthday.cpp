@@ -1,10 +1,3 @@
-#!/bin/sh
-
-if [ $# -ne 1 ]; then
-    exit 1
-fi
-
-cat > $(dirname $0)/$1 <<EOF
 #include <iostream>
 #include <cstdio>
 #include <cstdlib>
@@ -21,14 +14,20 @@ cat > $(dirname $0)/$1 <<EOF
 #include <string>
 #include <iterator>
 
-#define ll long long
+//#define int long long
 
 using namespace std;
 
+#define N 16
+//signed main()
 int main()
 {
+    int A, B;
+    cin >> A >> B;
+    if (A <= N/2 && B <= N/2) {
+        cout << "Yay!" << endl;
+    } else {
+        cout << ":(" << endl;
+    }
     return 0;
 }
-EOF
-
-exit 0
