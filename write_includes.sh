@@ -20,6 +20,7 @@ cat > $(dirname $0)/$1 <<EOF
 #include <map>
 #include <string>
 #include <iterator>
+#include <pthread.h>
 
 #define ll long long
 

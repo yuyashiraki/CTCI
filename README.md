@@ -4,7 +4,7 @@ Solutions for Cracking The Coding Interview, Hackerrank, and AtCoder.
 # Commands
 ```
 $ ./write_include.sh hoo/bar.cpp
-$ g++ -std=gnu++14 bar.cpp
+$ g++ -std=gnu++14 -g -pthread bar.cpp
 ```
 
 # Memo
