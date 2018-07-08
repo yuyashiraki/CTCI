@@ -16,74 +16,28 @@ public:
         return r;
     }
 
-    // Wrong Answer
-    // Approach is not bad I guess
     // Time O(N)  Space O(N)
     int maxProduct(vector<int>& nums) {
         if (!nums.size()) return 0;
-        if (nums.size() == 1 && nums[0] == 0) return 0;
-        vector<int> products{1};
-        int rt = INT_MIN, n;
-        set<int> neg_tree, pos_tree;
-        pos_tree.insert(products[0]);
-        for (int i = 0; i < nums.size(); i++) {
-            if (!products[i]) {
+        if (nums.size() == 1) return nums[0];
+        vector<long long> products;
+        int n = nums.size();
+        long long ans = INT_MIN, neg_min;
+        for (int i = 0; i < n; i++) {
+            if (0 == i || 0 == products[i - 1]) {
                 products.push_back(nums[i]);
+                neg_min = INT_MIN;
             } else {
-                products.push_back(products[i] * nums[i]);
+                products.push_back(products[i - 1] * nums[i]);
             }
-            if (!products[i + 1]) {
-                if (!neg_tree.empty()) {
-                    n = neg_tree.size();
-                    int neg_min = *(neg_tree.begin());
-                    if (n > 1) {
-                        int neg_max = *(next(neg_tree.begin(), n - 1));
-                        int tmp = neg_min / neg_max;
-                        rt = max(rt, tmp);
-                    } else {
-                        rt = max(rt, 0);
-                    }
+            ans = max(ans, products[i]);
+            if (products[i] < 0) {
+                if (INT_MIN != neg_min) {
+                    ans = max(ans, products[i] / neg_min);
                 }
-                if (!pos_tree.empty()) {
-                    n = pos_tree.size();
-                    int pos_min = *(pos_tree.begin());
-                    if (n > 1) {
-                        int pos_max = *(next(pos_tree.begin(), n - 1));
-                        int tmp = pos_max / pos_min;
-                        rt = max(rt, tmp);
-                    }
-                }
-                /* reset */
-                neg_tree.clear(); pos_tree.clear();
-                pos_tree.insert(1);
-            } else if (products[i + 1] < 0) {
-                neg_tree.insert(products[i + 1]);
-            } else { /* products[i] > 0 */
-                pos_tree.insert(products[i + 1]);
-            }
-            cout << products[i + 1] << endl;
-        }
-        if (!neg_tree.empty()) {
-            n = neg_tree.size();
-            int neg_min = *(neg_tree.begin());
-            if (n > 1) {
-                int neg_max = *next(neg_tree.begin(), n - 1);
-                int tmp = neg_min / neg_max;
-                rt = max(rt, tmp);
-            } else {
-                rt = max(rt, neg_min);
+                neg_min = max(neg_min, products[i]);
             }
         }
-        if (!pos_tree.empty()) {
-            n = pos_tree.size();
-            int pos_min = *(pos_tree.begin());
-            if (n > 1) {
-                int pos_max = *(next(pos_tree.begin(), n - 1));
-                int tmp = pos_max / pos_min;
-                rt = max(rt, tmp);
-            }
-        }
-        return rt;
+        return (int) ans;
     }
-
 };
