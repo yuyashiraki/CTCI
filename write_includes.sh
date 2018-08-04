@@ -21,6 +21,7 @@ cat > $(dirname $0)/$1 <<EOF
 #include <string>
 #include <iterator>
 #include <pthread.h>
+#include <sstream>
 
 #define ll long long
 

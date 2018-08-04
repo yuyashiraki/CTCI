@@ -41,6 +41,23 @@ void deleteNode(Node** headAddr, int pos)
     free(ptr);
 }
 
+void reverseList(Node **head)
+{
+    Node *ptr = *head, *tail;
+    while (ptr) {
+        Node* tmp = ptr->next;
+        ptr->next = ptr->prev;
+        ptr->prev = tmp;
+        if (tmp) {
+            ptr = tmp;
+        } else {
+            tail = ptr;
+            break;
+        }
+    }
+    *head = tail;
+}
+
 void printList(Node* head)
 {
     if (head) {
@@ -80,6 +97,8 @@ int main(void)
 //        addNode(&head, p, x);
         scanf("%d", &p);
         deleteNode(&head, p - 1);
+        printList(head);
+        reverseList(&head);
         printList(head);
     }
     return 0;
