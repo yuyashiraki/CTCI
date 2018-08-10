@@ -1,7 +1,7 @@
 class Solution {
 public:
     // Recursive
-    // Time O(2^(T + P/2)) where T=s.size(), P=p.size()
+    // Time O((T+P)2^(T + P/2)) where T=s.size(), P=p.size()
     // Space O(2^(T + P/2)) in below method
     bool isMatch(string s, string p) {
         if (p.size() == 0)
