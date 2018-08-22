@@ -21,4 +21,17 @@ public:
         }
         return *(St.begin());
     }
+
+    // If sorted, check with previous number
+    // Time O(n)  Space O(1)
+    int singleNumber(vector<int>& nums) {
+        int prev = 0, i;
+        bool flg = true;
+        for (i = 0; i < nums.size(); i++) {
+            if (flg) prev = nums[i];
+            else if (nums[i] != prev) return prev;
+            flg = !flg;
+        }
+        return nums[i - 1];
+    }
 };
