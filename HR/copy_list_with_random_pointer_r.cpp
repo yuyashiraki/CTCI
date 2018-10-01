@@ -11,29 +11,43 @@ public:
     // three pass
     // Time O(n)  Space O(1)
     RandomListNode *copyRandomList(RandomListNode *head) {
-        if (NULL == head) return NULL;
-        RandomListNode *cur = head, *tmp;
-        while (NULL != cur) {
-            tmp = cur->next;
-            cur->next = new RandomListNode(cur->label);
-            cur->next->next = tmp;
-            cur = tmp;
+        if (head == NULL) return NULL;
+        RandomListNode *rt;
+        for (RandomListNode *cur = head; cur != NULL; cur = cur->next) {
+            RandomListNode *cp = new RandomListNode(cur->label);
+            cp->next = cur->next;
+            cur->next = cp;
+            cur = cp;
         }
-        //cout << "DEBUG" << endl;
-        cur = head;
-        while (NULL != cur) {
-            if (NULL != cur->random) cur->next->random = cur->random->next;
-            cur = cur->next->next;
+        rt = head->next;
+        for (RandomListNode *cur = head; cur != NULL; cur = cur->next->next) {
+            cur->next->random = cur->random ? cur->random->next : NULL;
         }
-        //cout << "DEBUG" << endl;
-        RandomListNode *ans = head->next;
-        cur = head;
-        while (NULL != cur) {
-            tmp = cur->next;
-            cur->next = tmp->next;
-            cur = cur->next;
-            if (NULL != cur) tmp->next = cur->next;
+        for (RandomListNode *cur = head; cur != NULL; cur = cur->next) {
+            RandomListNode *cp = cur->next;
+            cur->next = cp->next;
+            cp->next = cp->next ? cp->next->next : NULL;
         }
-        return ans;
+        return rt;
+    }
+
+    // using Hash Table
+    // Time O(n)  Space O(1)
+    unordered_map<RandomListNode*, RandomListNode*> MP;
+    RandomListNode *copyRandomList(RandomListNode *head) {
+        if (head == NULL) return NULL;
+        RandomListNode *rt = NULL, *prv = NULL;
+        for (RandomListNode *cur = head; cur != NULL; cur = cur->next) {
+            if (0 == MP.count(cur)) MP[cur] = new RandomListNode(cur->label);
+            RandomListNode *cp = MP[cur];
+            if (rt == NULL) rt = cp;
+            if (prv) prv->next = cp;
+            prv = cp;
+            if (cur->random != NULL && 0 == MP.count(cur->random)) MP[cur->random] = new RandomListNode(cur->random->label);
+            RandomListNode *randomcp = cur->random ? MP[cur->random] : NULL;
+            cp->random = randomcp;
+        }
+        prv->next = NULL;
+        return rt;
     }
 };
